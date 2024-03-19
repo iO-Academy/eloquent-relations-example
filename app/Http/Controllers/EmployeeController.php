@@ -20,7 +20,7 @@ class EmployeeController extends Controller
     {
         return response()->json($this->responseService->getFormat(
             'Employees retrieved',
-            Employee::with('contract:id,name')->get()->makeHidden(['contract_id', 'created_at', 'updated_at'])
+            Employee::with(['contract:id,name', 'certifications:id,name,description'])->get()->makeHidden(['contract_id', 'created_at', 'updated_at'])
         ));
     }
 
