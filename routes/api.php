@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -10,3 +11,4 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get('/employees', [EmployeeController::class, 'all']);
+Route::get('/contracts', [ContractController::class, 'all']);

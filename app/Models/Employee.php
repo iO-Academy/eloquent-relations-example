@@ -10,6 +10,7 @@ class Employee extends Model
 {
     use HasFactory;
 
+    public $hidden = ['contract_id'];
     public function contract(): BelongsTo
     {
         return $this->belongsTo(Contract::class);

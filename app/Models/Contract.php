@@ -10,7 +10,7 @@ class Contract extends Model
 {
     use HasFactory;
 
-    public function Employees(): HasMany
+    public function employees(): HasMany
     {
         return $this->hasMany(Employee::class);
     }
