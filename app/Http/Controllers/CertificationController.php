@@ -18,7 +18,7 @@ class CertificationController extends Controller
     public function all()
     {
         return response()->json($this->responseService->getFormat(
-            'Certications retrieved',
+            'Certifications retrieved',
             Certification::with('employees:id,name')->get()->makeHidden(['created_at', 'updated_at'])
         ));
     }
