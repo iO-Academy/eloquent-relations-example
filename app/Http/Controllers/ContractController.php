@@ -23,4 +23,24 @@ class ContractController extends Controller
             Contract::with('employees:id,name,contract_id')->get()
         ));
     }
+
+    public function create(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:50'
+        ]);
+
+        $contract = new Contract();
+        $contract->name = $request->name;
+
+        if (! $contract->save()) {
+            return response()->json($this->responseService->getFormat(
+                'Contract creation failed'
+            ), 500);
+        }
+
+        return response()->json($this->responseService->getFormat(
+            'Contract created'
+        ), 201);
+    }
 }

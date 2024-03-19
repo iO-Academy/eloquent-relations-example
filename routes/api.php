@@ -11,4 +11,6 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get('/employees', [EmployeeController::class, 'all']);
+Route::post('/employees', [EmployeeController::class, 'create']);
 Route::get('/contracts', [ContractController::class, 'all']);
+Route::post('/contracts', [ContractController::class, 'create']);
