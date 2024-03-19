@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Http\Request;
@@ -18,3 +19,4 @@ Route::get('/contracts', [ContractController::class, 'all']);
 Route::post('/contracts', [ContractController::class, 'create']);
 Route::put('/contracts/{id}', [ContractController::class, 'update']);
 
+Route::get('/certifications', [CertificationController::class, 'all']);

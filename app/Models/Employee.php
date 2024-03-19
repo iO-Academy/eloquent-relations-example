@@ -11,7 +11,7 @@ class Employee extends Model
 {
     use HasFactory;
 
-    public $hidden = ['contract_id'];
+    public $hidden = ['contract_id', 'pivot'];
     public function contract(): BelongsTo
     {
         return $this->belongsTo(Contract::class);
