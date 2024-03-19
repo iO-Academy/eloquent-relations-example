@@ -12,5 +12,9 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/employees', [EmployeeController::class, 'all']);
 Route::post('/employees', [EmployeeController::class, 'create']);
+Route::put('/employees/{id}', [EmployeeController::class, 'update']);
+
 Route::get('/contracts', [ContractController::class, 'all']);
 Route::post('/contracts', [ContractController::class, 'create']);
+Route::put('/contracts/{id}', [ContractController::class, 'update']);
+

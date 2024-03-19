@@ -50,4 +50,44 @@ class EmployeeController extends Controller
         ), 201);
     }
 
+    public function update(int $id, Request $request)
+    {
+        $request->validate([
+            'name' => 'max:100',
+            'age' => 'integer|min:16|max:100',
+            'start_date' => 'date',
+            'contract_id' => 'integer|exists:contracts,id'
+        ]);
+
+        $employee = Employee::find($id);
+
+        if (! $employee) {
+            return response()->json($this->responseService->getFormat(
+                'Employee not found'
+            ), 404);
+        }
+
+        if ($request->name) {
+            $employee->name = $request->name;
+        }
+        if ($request->age) {
+            $employee->age = $request->age;
+        }
+        if ($request->start_date) {
+            $employee->start_date = $request->start_date;
+        }
+        if ($request->contract_id) {
+            $employee->contract_id = $request->contract_id;
+        }
+
+        if (! $employee->save()) {
+            return response()->json($this->responseService->getFormat(
+                'Employee update failed'
+            ), 500);
+        }
+
+        return response()->json($this->responseService->getFormat(
+            'Employee updated'
+        ), 200);
+    }
 }

@@ -43,4 +43,31 @@ class ContractController extends Controller
             'Contract created'
         ), 201);
     }
+
+    public function update(int $id, Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:50'
+        ]);
+
+        $contract = Contract::find($id);
+
+        if (! $contract) {
+            return response()->json($this->responseService->getFormat(
+                'Contract not found'
+            ), 404);
+        }
+
+        $contract->name = $request->name;
+
+        if (! $contract->save()) {
+            return response()->json($this->responseService->getFormat(
+                'Contract update failed'
+            ), 500);
+        }
+
+        return response()->json($this->responseService->getFormat(
+            'Contract updated'
+        ), 200);
+    }
 }
