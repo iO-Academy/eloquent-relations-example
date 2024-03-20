@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +16,7 @@ class ContractSeeder extends Seeder
 
         foreach ($toInsert as $contract) {
             DB::table('contracts')->insert([
-                'name' => $contract
+                'name' => $contract,
             ]);
         }
     }

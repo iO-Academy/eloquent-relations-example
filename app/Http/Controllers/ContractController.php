@@ -15,7 +15,6 @@ class ContractController extends Controller
         $this->responseService = $responseService;
     }
 
-
     public function all()
     {
         return response()->json($this->responseService->getFormat(
@@ -35,7 +34,7 @@ class ContractController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:50'
+            'name' => 'required|string|max:50',
         ]);
 
         $contract = new Contract();
@@ -55,7 +54,7 @@ class ContractController extends Controller
     public function update(int $id, Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:50'
+            'name' => 'required|string|max:50',
         ]);
 
         $contract = Contract::find($id);

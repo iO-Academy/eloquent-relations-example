@@ -15,7 +15,6 @@ class EmployeeController extends Controller
         $this->responseService = $responseService;
     }
 
-
     public function all()
     {
         return response()->json($this->responseService->getFormat(
@@ -32,7 +31,7 @@ class EmployeeController extends Controller
             'start_date' => 'required|date',
             'contract_id' => 'required|integer|exists:contracts,id',
             'certification_ids' => 'array',
-            'certification_ids.*' => 'integer|exists:certifications,id'
+            'certification_ids.*' => 'integer|exists:certifications,id',
         ]);
 
         $employee = new Employee();
@@ -45,7 +44,7 @@ class EmployeeController extends Controller
 
         $employee->certifications()->attach($request->certification_ids);
 
-        if (!$save) {
+        if (! $save) {
             return response()->json($this->responseService->getFormat(
                 'Employee creation failed'
             ), 500);
@@ -62,7 +61,7 @@ class EmployeeController extends Controller
             'name' => 'max:100',
             'age' => 'integer|min:16|max:100',
             'start_date' => 'date',
-            'contract_id' => 'integer|exists:contracts,id'
+            'contract_id' => 'integer|exists:contracts,id',
         ]);
 
         $employee = Employee::find($id);

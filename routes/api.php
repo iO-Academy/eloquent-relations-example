@@ -10,7 +10,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
 Route::get('/employees', [EmployeeController::class, 'all']);
 Route::post('/employees', [EmployeeController::class, 'create']);
 Route::put('/employees/{id}', [EmployeeController::class, 'update']);

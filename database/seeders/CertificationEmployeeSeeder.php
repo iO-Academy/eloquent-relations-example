@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -16,20 +15,20 @@ class CertificationEmployeeSeeder extends Seeder
         $toInsert = [
             [
                 'certification_id' => 1,
-                'employee_id' => 1
+                'employee_id' => 1,
             ],
             [
                 'certification_id' => 2,
-                'employee_id' => 1
-            ],[
+                'employee_id' => 1,
+            ], [
                 'certification_id' => 2,
-                'employee_id' => 2
-            ],[
+                'employee_id' => 2,
+            ], [
                 'certification_id' => 3,
-                'employee_id' => 2
-            ],[
+                'employee_id' => 2,
+            ], [
                 'certification_id' => 1,
-                'employee_id' => 4
+                'employee_id' => 4,
             ],
         ];
 
