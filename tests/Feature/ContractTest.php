@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Contract;
+use App\Models\Employee;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -46,6 +47,35 @@ class ContractTest extends TestCase
                                 'id' => 'integer',
                                 'name' => 'string'
                             ]);
+                    });
+            });
+    }
+
+    public function test_getSingleContract(): void
+    {
+        Employee::factory()->create();
+
+        $response = $this->getJson('/api/contracts/1');
+
+        $response->assertOk()
+            ->assertJson(function (AssertableJson $json) { // Looking at the JSON from the top level
+                $json->hasAll(['message', 'data'])
+                    ->whereType('message', 'string')
+                    // This time has does not have a number because for this endpoint
+                    // data contains an object not an array
+                    ->has('data', function (AssertableJson $json) { // Zooming into the data
+                         $json->hasAll(['id', 'name', 'employees'])
+                             ->whereAllType([
+                                 'id' => 'integer',
+                                 'name' => 'string'
+                             ])
+                             ->has('employees', 1, function(AssertableJson $json) { // Zooming into each employee
+                                $json->hasAll(['id', 'name'])
+                                    ->whereAllType([
+                                        'id' => 'integer',
+                                        'name' => 'string'
+                                    ]);
+                             });
                     });
             });
     }
