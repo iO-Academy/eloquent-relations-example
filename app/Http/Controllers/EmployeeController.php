@@ -30,7 +30,9 @@ class EmployeeController extends Controller
             'name' => 'required|max:100',
             'age' => 'required|integer|min:16|max:100',
             'start_date' => 'required|date',
-            'contract_id' => 'required|integer|exists:contracts,id'
+            'contract_id' => 'required|integer|exists:contracts,id',
+            'certification_ids' => 'array',
+            'certification_ids.*' => 'integer|exists:certifications,id'
         ]);
 
         $employee = new Employee();
@@ -39,7 +41,11 @@ class EmployeeController extends Controller
         $employee->start_date = $request->start_date;
         $employee->contract_id = $request->contract_id;
 
-        if (! $employee->save()) {
+        $save = $employee->save();
+
+        $employee->certifications()->attach($request->certification_ids);
+
+        if (!$save) {
             return response()->json($this->responseService->getFormat(
                 'Employee creation failed'
             ), 500);

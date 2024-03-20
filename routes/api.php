@@ -21,3 +21,5 @@ Route::post('/contracts', [ContractController::class, 'create']);
 Route::put('/contracts/{id}', [ContractController::class, 'update']);
 
 Route::get('/certifications', [CertificationController::class, 'all']);
+Route::get('/certifications/{id}', [CertificationController::class, 'find']);
+Route::post('/certifications', [CertificationController::class, 'create']);
