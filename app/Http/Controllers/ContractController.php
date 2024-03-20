@@ -19,8 +19,16 @@ class ContractController extends Controller
     public function all()
     {
         return response()->json($this->responseService->getFormat(
-            'Employees retrieved',
-            Contract::with('employees:id,name,contract_id')->get()
+            'Contracts retrieved',
+            Contract::all()->makeHidden(['created_at', 'updated_at'])
+        ));
+    }
+
+    public function find(int $id)
+    {
+        return response()->json($this->responseService->getFormat(
+            'Contract retrieved',
+            Contract::with('employees:id,name,contract_id')->find($id)->makeHidden(['created_at', 'updated_at'])
         ));
     }
 
