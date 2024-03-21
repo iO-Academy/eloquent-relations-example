@@ -21,6 +21,7 @@ Route::controller(ContractController::class)->group(function () {
     Route::get('/contracts/{id}', 'find');
     Route::post('/contracts', 'create');
     Route::put('/contracts/{id}', 'update');
+    Route::delete('/contracts/{id}', 'delete');
 });
 
 Route::controller(CertificationController::class)->group(function () {

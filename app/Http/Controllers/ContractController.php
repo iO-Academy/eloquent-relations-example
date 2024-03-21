@@ -57,6 +57,7 @@ class ContractController extends Controller
             'name' => 'required|string|max:50',
         ]);
 
+
         $contract = Contract::find($id);
 
         if (! $contract) {
@@ -75,6 +76,22 @@ class ContractController extends Controller
 
         return response()->json($this->responseService->getFormat(
             'Contract updated'
+        ), 200);
+    }
+
+    public function delete(int $id) {
+        $contract = Contract::find($id);
+
+        if (! $contract) {
+            return response()->json($this->responseService->getFormat(
+                'Contract not found'
+            ), 404);
+        }
+
+        $contract->delete();
+
+        return response()->json($this->responseService->getFormat(
+            'Contract deleted'
         ), 200);
     }
 }

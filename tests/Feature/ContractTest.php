@@ -21,7 +21,12 @@ class ContractTest extends TestCase
     public function test_getContracts(): void
     {
         // Use the factory we created to create a single contract in the test database
-        Contract::factory()->count(4)->create();
+
+        // Using a factory returns a model that we can use to change/access the test record
+        $contract = Contract::factory()->count(4)->create();
+
+        // We can use this technique to finely tune the test data we have
+        // We could write a test now to search contracts, and we know exactly what results we should get back
 
         // We send a get request for JSON to the route we are testing
         // And we store the response in a variable
@@ -78,5 +83,62 @@ class ContractTest extends TestCase
                              });
                     });
             });
+    }
+
+    public function test_updateContract_invalidData(): void
+    {
+        // Because we are updating a contract, we need to use the factory to give us a contract to update
+        Contract::factory()->create();
+        $response = $this->putJson('/api/contracts/1', []);
+
+        $response->assertInvalid(['name']);
+    }
+
+    public function test_updateContract_success(): void
+    {
+        Contract::factory()->create();
+        $response = $this->putJson('/api/contracts/1', [
+            'name' => 'testing'
+        ]);
+
+        $response->assertOk()
+            ->assertJson(function (AssertableJson $json) {
+               $json->hasAll(['message'])
+                ->whereType('message', 'string');
+            });
+
+        $this->assertDatabaseHas('contracts', [
+            'name' => 'testing'
+        ]);
+    }
+
+    public function test_updateContract_notFound(): void
+    {
+        $response = $this->putJson('/api/contracts/1', [
+            'name' => 'testing'
+        ]);
+
+        $response->assertStatus(404)
+            ->assertJson(function (AssertableJson $json) {
+                $json->hasAll(['message'])
+                    ->whereType('message', 'string');
+            });
+    }
+
+    public function test_deleteContract_success(): void
+    {
+        $contract = Contract::factory()->create();
+
+        $response = $this->deleteJson('/api/contracts/1');
+
+        $response->assertOk()
+            ->assertJson(function (AssertableJson $json) {
+               $json->hasAll(['message'])
+                    ->whereType('message', 'string');
+            });
+
+        $this->assertDatabaseMissing('contracts', [
+            'name' => $contract->name
+        ]);
     }
 }
