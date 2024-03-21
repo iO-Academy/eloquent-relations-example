@@ -21,9 +21,7 @@ class ContractTest extends TestCase
     public function test_getContracts(): void
     {
         // Use the factory we created to create a single contract in the test database
-
-        // Using a factory returns a model that we can use to change/access the test record
-        $contract = Contract::factory()->count(4)->create();
+        Contract::factory()->count(4)->create();
 
         // We can use this technique to finely tune the test data we have
         // We could write a test now to search contracts, and we know exactly what results we should get back
